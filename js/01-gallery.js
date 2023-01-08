@@ -3,33 +3,39 @@ import { galleryItems } from './gallery-items.js';
 
 // console.log(galleryItems);
 const imegesContainer = document.querySelector(".gallery");
-const imegesMarcup = createPictureGallary(galleryItems);
-imegesContainer.insertAdjacentHTML("beforeend", imegesMarcup);
 
-
-function createPictureGallary(galleryItems) {
-    return galleryItems
-        .map(({ preview, original, description }) => {
-            `<div class="gallery__item">
-        <a class="gallery__link" href="${original}" >
-          <img class="gallery__image" 
-          data-source ="${original}"
+const marcup = galleryItems.map(({ preview, original, description }) =>
+  `<div class="gallery__item">
+          <a class="gallery__link" href="${original}" >
+         <img class="gallery__image" 
+         data-source ="${original}"
           src="${preview}" 
           alt="${description}">
         </a>
-      </div>`
-        })
-        .join("");
-};
+       </div>`)
+  .join(" ");
+
+imegesContainer.insertAdjacentHTML("beforeend", marcup);
+
 
 imegesContainer.addEventListener('click', (eve) => {
     eve.preventDefault();
     if (eve.target.nodeName !== "IMG") {
         return
     }
-    const urlLargeImg = eve.target.getAtribute('data-source');
+  
     const instance = basicLightbox.create(`
-    <img src="${urlLargeImg}" width = '800' height = '600'
+    <img src="${eve.target.dataset.source}" width = '800' height = '600'
           >`)
     instance.show();
 });
+
+imegesContainer.addEventListener('keydown', (event) => {
+ event.preventDefault();
+  if ( event.code === "Escape") {
+     instance.close()
+  }
+}
+)
+
+
