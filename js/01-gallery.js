@@ -22,20 +22,23 @@ imegesContainer.addEventListener('click', (eve) => {
     eve.preventDefault();
     if (eve.target.nodeName !== "IMG") {
         return
-    }
+    }  
   
     const instance = basicLightbox.create(`
     <img src="${eve.target.dataset.source}" width = '800' height = '600'
           >`)
-    instance.show();
-});
+  instance.show();
 
-imegesContainer.addEventListener('keydown', (event) => {
- event.preventDefault();
+  imegesContainer.addEventListener('keydown', (event) => {
   if ( event.code === "Escape") {
      instance.close()
   }
 }
 )
+  
+});
+
+
+
 
 
