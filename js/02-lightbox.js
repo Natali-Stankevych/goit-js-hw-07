@@ -4,25 +4,19 @@ import { galleryItems } from './gallery-items.js';
 const imegesContainer = document.querySelector(".gallery");
 
 const marcup = galleryItems.map(({ preview, original, description }) =>
-  ` <a class="gallery__item" 
-  href="${original}">
-  <img class="${original}" 
-  src="${preview}" 
-  alt="${description}" />
-</a>`)
+  ` <li class="gallery__item">
+  <a class="gallery__link" href="${original}">
+     <img class="gallery__image" src="${preview}" alt="${description}" />
+  </a>
+</li>`)
   .join(" ");
 
 imegesContainer.insertAdjacentHTML("beforeend", marcup);
 
-imegesContainer.addEventListener('click', (eve) => {
-    eve.preventDefault();
-    if (eve.target.nodeName !== "IMG") {
-        return
-    }
+
     new SimpleLightbox('.gallery a', {
         captions: true,
         captionsData: 'alt',
         captionDelay: 250,
     })
 
-})

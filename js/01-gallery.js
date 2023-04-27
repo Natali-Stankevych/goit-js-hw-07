@@ -26,17 +26,22 @@ imegesContainer.addEventListener('click', (eve) => {
   
     const instance = basicLightbox.create(`
     <img src="${eve.target.dataset.source}" width = '800' height = '600'
-          >`)
+          >`,
+          
+          { onShow: () => window.addEventListener('keydown' ,escKeyPress),
+            onClose: () => window.removeEventListener('keydown' ,escKeyPress) 
+          } );
   instance.show();
 
-  imegesContainer.addEventListener('keydown', (event) => {
+  function escKeyPress (event){
   if ( event.code === "Escape") {
      instance.close()
   }
 }
-)
+}
+);
+console.log
   
-});
 
 
 
